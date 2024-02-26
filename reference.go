@@ -17,11 +17,14 @@ type ReferenceStorage struct {
 // Reference loads a Git reference from storage.
 func (r *ReferenceStorage) Reference(name plumbing.ReferenceName) (*plumbing.Reference, error) {
 	rows, err := r.client.Query(`SELECT type, hash, name, target FROM "refs" WHERE name = $1;`, name)
+
 	if err != nil {
 		return nil, &plumbing.UnexpectedError{
 			Err: err,
 		}
 	}
+
+	defer rows.Close()
 
 	if !rows.Next() {
 		return nil, plumbing.ErrReferenceNotFound
@@ -32,7 +35,6 @@ func (r *ReferenceStorage) Reference(name plumbing.ReferenceName) (*plumbing.Ref
 		return nil, plumbing.ErrReferenceNotFound
 	}
 
-	rows.Close()
 	return obj, nil
 }
 
@@ -115,7 +117,7 @@ func (r *ReferenceStorage) CountLooseRefs() (int, error) {
 // PackRefs is not currently implemented.
 func (r *ReferenceStorage) PackRefs() error {
 	return &plumbing.UnexpectedError{
-		Err: fmt.Errorf("Not supported"),
+		Err: fmt.Errorf("not supported"),
 	}
 }
 

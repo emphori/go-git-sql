@@ -93,7 +93,7 @@ func (o *ObjectStorage) HasEncodedObject(hash plumbing.Hash) error {
 	rows, err := o.client.Query(`SELECT hash FROM "objects" WHERE hash = '$1';`, hash)
 
 	if err != nil {
-		return 0, &plumbing.UnexpectedError{
+		return &plumbing.UnexpectedError{
 			Err: err,
 		}
 	}
@@ -141,7 +141,7 @@ func (o *ObjectStorage) SetEncodedObject(obj plumbing.EncodedObject) (plumbing.H
 // AddAlternate is not currently implemented.
 func (o *ObjectStorage) AddAlternate(remote string) error {
 	return &plumbing.UnexpectedError{
-		Err: fmt.Errorf("Not supported"),
+		Err: fmt.Errorf("not supported"),
 	}
 }
 
