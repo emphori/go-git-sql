@@ -1,8 +1,15 @@
 # go-git-sql
 
-A barebones SQL-backed storage implementation for [go-git][go-git]
+An SQL-backed storage implementation for [go-git][go-git].
 
 [go-git]: https://github.com/go-git/go-git
+
+> [!WARNING]
+>
+> This project is currently a work in progress, and may not include the
+> functionality you expect. Please refer to [this milestone] for more details.
+>
+> [this milestone]: https://github.com/emphori/go-git-sql/milestone/1
 
 ## Creating SQL tables
 
